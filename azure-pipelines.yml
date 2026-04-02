@@ -7,7 +7,7 @@ pool:
 steps:
   - task: NodeTool@0
     inputs:
-      versionSpec: '20.x'
+      versionSpec: '22.x'
     displayName: 'Install Node.js'
 
   - script: npm ci
@@ -18,7 +18,7 @@ steps:
 
   - task: AzureWebApp@1
     inputs:
-      azureSubscription: '<your-service-connection-name>'
+      azureSubscription: 'azure-realestate-connection'
       appType: 'webAppLinux'
       appName: 'realestate-portal'
       package: '$(System.DefaultWorkingDirectory)/dist'
