@@ -1,0 +1,25 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+  - script: npm ci
+    displayName: 'Install dependencies'
+
+  - script: npm run build
+    displayName: 'Build Vite app'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'azure-realestate-connection' 
+    appType: 'webAppLinux'
+    appName: 'realestate-portal'
+    package: '$(System.DefaultWorkingDirectory)/dist'
+  displayName: 'Deploy to Azure App Service'
